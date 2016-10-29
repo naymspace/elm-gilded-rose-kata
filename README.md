@@ -19,8 +19,8 @@ npm install -g elm elm-test
 elm-test
 ```
 
-If you see the tests passing you are set up to work the kata. After making familiar with the
-[original description](original-description-of-the-gilded-rose) you may start hacking at `src/GildedRose.elm`!
+If the tests pass, you are all set up to work the kata. After making familiar with the
+[original description](#original-description-of-the-gilded-rose) you may start hacking at `src/GildedRose.elm`!
 
 
 ## Afterwards
