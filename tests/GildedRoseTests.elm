@@ -59,7 +59,7 @@ all =
                         , test "on sell date" <| changesBy 0 0 <| item sellDate
                         , test "after sell date" <| changesBy 0 0 <| item afterSell
                         ]
-                , describe "Backstage Pass" <|
+                , describe "Backstage Passes" <|
                     let
                         item =
                             Item "Backstage passes to a TAFKAL80ETC concert"
@@ -78,6 +78,16 @@ all =
                             , test "very close to sell date (upper bound)" <| qualityChangesBy 0 <| item 5 maxQuality
                             , test "very close to sell date (lower bound)" <| qualityChangesBy 0 <| item 1 maxQuality
                             ]
+                        ]
+                , describe "Conjured Item" <|
+                    let
+                        item =
+                            Item "Conjured Item"
+                    in
+                        [ test "before sell date" <| qualityChangesBy -2 <| item beforeSell quality
+                        , test "on sell date" <| qualityChangesBy -4 <| item sellDate quality
+                        , test "after sell date" <| qualityChangesBy -4 <| item afterSell quality
+                        , test "of zero quality" <| qualityChangesBy 0 <| item beforeSell 0
                         ]
                 ]
             ]

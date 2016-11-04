@@ -16,61 +16,38 @@ updateQuality =
 
 updateQualityItem (Item name sellIn quality) =
     let
-        quality' =
-            if (name /= "Aged Brie" && name /= "Backstage passes to a TAFKAL80ETC concert") then
-                if quality > 0 then
-                    if name /= "Sulfuras, Hand of Ragnaros" then
-                        quality - 1
-                    else
-                        quality
-                else
-                    quality
-            else if quality < 50 then
-                quality
-                    + 1
-                    + (if name == "Backstage passes to a TAFKAL80ETC concert" then
-                        if sellIn < 11 then
-                            if quality < 49 then
-                                1
-                                    + (if sellIn < 6 then
-                                        if quality < 48 then
-                                            1
-                                        else
-                                            0
-                                       else
-                                        0
-                                      )
-                            else
-                                0
-                        else
-                            0
-                       else
-                        0
-                      )
-            else
-                quality
-
-        sellIn' =
-            if name /= "Sulfuras, Hand of Ragnaros" then
-                sellIn - 1
-            else
-                sellIn
+        {- BEWARE: the name is deceptive, as sellIn is updated implicitly. seems to be well worth it regarding readability. -}
+        changeQualityBy =
+            (+) quality >> clamp 0 50 >> Item name (sellIn - 1)
     in
-        if sellIn' < 0 then
-            if name /= "Aged Brie" then
-                if name /= "Backstage passes to a TAFKAL80ETC concert" then
-                    if quality' > 0 then
-                        if name /= "Sulfuras, Hand of Ragnaros" then
-                            (Item name sellIn' (quality' - 1))
-                        else
-                            (Item name sellIn' quality')
-                    else
-                        (Item name sellIn' quality')
+        case name of
+            "Aged Brie" ->
+                if sellIn > 0 then
+                    changeQualityBy 1
                 else
-                    (Item name sellIn' (quality' - quality'))
-            else if quality' < 50 then
-                (Item name sellIn' (quality' + 1))
-            else
-                (Item name sellIn' quality')
-        else
-            (Item name sellIn' quality')
+                    changeQualityBy 2
+
+            "Backstage passes to a TAFKAL80ETC concert" ->
+                if sellIn > 10 then
+                    changeQualityBy 1
+                else if sellIn > 5 then
+                    changeQualityBy 2
+                else if sellIn > 0 then
+                    changeQualityBy 3
+                else
+                    changeQualityBy -quality
+
+            "Sulfuras, Hand of Ragnaros" ->
+                Item name sellIn quality
+
+            "Conjured Item" ->
+                if sellIn > 0 then
+                    changeQualityBy -2
+                else
+                    changeQualityBy -4
+
+            _ ->
+                if sellIn > 0 then
+                    changeQualityBy -1
+                else
+                    changeQualityBy -2
