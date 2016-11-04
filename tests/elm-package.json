@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "Tests for The Gilded Rose Code Kata in elm",
-    "repository": "https://github.com/pierrebeitz/elm_gilded_rose_kata.git",
+    "repository": "https://github.com/pierrebeitz/elm-gilded-rose-kata.git",
     "license": "MIT",
     "source-directories": [
         ".",
