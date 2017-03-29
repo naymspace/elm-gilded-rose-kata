@@ -1,0 +1,17 @@
+{
+  "name": "elm-gilded-rose-kata",
+  "version": "0.0.1",
+  "description": "Elm Gilded Rose Kata",
+  "main": "main.js",
+  "scripts": {
+    "test": "clear && echo 'running tests' && elm-test",
+    "test-watch": "npm test; fswatch -0 src tests -e '.*' -i \\.elm$ | xargs -0 -n1 -I{} npm test"
+  },
+  "repository": "https://github.com/naymspace/elm-gilded-rose-kata",
+  "author": "Pierre Beitz",
+  "license": "MIT",
+  "dependencies": {
+    "elm": "^0.18.0",
+    "elm-test": "^0.18.2"
+  }
+}
